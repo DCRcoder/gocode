@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"gocode"
-	"os"
 	"log"
+	"os"
 )
 
 func main() {

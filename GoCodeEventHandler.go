@@ -19,20 +19,20 @@ func WatchAnyEvent(repo Repository) {
 	go func() {
 		for {
 			select {
-				case event := <- watcher.Events:
-					log.Println("event: ", event)
-					if event.Op&fsnotify.Write == fsnotify.Write {
-						log.Println("modified file: ", event.Name)
-					}
-					repo.Sync()
-				case err := <- watcher.Errors:
-					log.Println("error: ", err)
+			case event := <-watcher.Events:
+				log.Println("event: ", event)
+				if event.Op&fsnotify.Write == fsnotify.Write {
+					log.Println("modified file: ", event.Name)
+				}
+				repo.Sync()
+			case err := <-watcher.Errors:
+				log.Println("error: ", err)
 			}
 		}
 	}()
 
 	err = watcher.Add(repo.path)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
 	<-eventChan

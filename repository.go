@@ -1,11 +1,10 @@
 package gocode
 
 import (
-	"os"
-	"time"
 	"log"
+	"os"
 	"os/exec"
-	"fmt"
+	"time"
 )
 
 type Repository struct {
@@ -30,13 +29,12 @@ func (repo Repository) Sync() {
 
 func (repo Repository) doSync() {
 	log.Println("do syncing")
-	cmd := exec.Command("rsync", "-av", "--delete", "--exclude=.git/",repo.path, repo.remotePath)
+	cmd := exec.Command("rsync", "-av", "--delete", "--exclude=.git/", repo.path, repo.remotePath)
 	err := cmd.Run()
 	if err != nil {
 		log.Println(err)
 	}
 }
-
 
 func New(path string, remotePath string) Repository {
 	return Repository{
@@ -47,7 +45,7 @@ func New(path string, remotePath string) Repository {
 
 func ValidatePath(path string) bool {
 	_, err := os.Stat(path + "/.git")
-	if err != nil && os.IsNotExist(err){
+	if err != nil && os.IsNotExist(err) {
 		return false
 	}
 	return true
