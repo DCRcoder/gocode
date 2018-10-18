@@ -14,7 +14,7 @@ func main() {
 	remotePath := flag.String("t", "missing target file or directory", "use -t file|directory")
 
 	flag.Parse()
-	if gocode.ValidatePath(*path) {
+	if gocode.ValidateGitPath(*path) {
 		repo := gocode.New(*path, *remotePath)
 		log.Println("Sync start...")
 		repo.Sync()

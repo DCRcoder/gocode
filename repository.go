@@ -2,7 +2,6 @@ package gocode
 
 import (
 	"log"
-	"os"
 	"os/exec"
 	"time"
 )
@@ -41,12 +40,4 @@ func New(path string, remotePath string) Repository {
 		path:       path,
 		remotePath: remotePath,
 	}
-}
-
-func ValidatePath(path string) bool {
-	_, err := os.Stat(path + "/.git")
-	if err != nil && os.IsNotExist(err) {
-		return false
-	}
-	return true
 }
