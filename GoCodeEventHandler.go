@@ -1,13 +1,14 @@
 package gocode
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 
 	"github.com/fsnotify/fsnotify"
 )
 
-var FilterName = []string{".git", "eggs", "develop-eggs", "gen-go", "gen-py"}
+var FilterName = []string{".git", "eggs", "develop-eggs", "gen-go", "gen-py", ".idea"}
 
 func filterDir(fileName string) bool {
 	for _, name := range FilterName {
@@ -48,13 +49,14 @@ func WatchAnyEvent(repo Repository) {
 			select {
 			case event, ok := <-watcher.Events:
 				if !ok {
+					fmt.Println("cache error event")
 					return
 				}
 				log.Println("event:", event)
 				if event.Op&fsnotify.Write == fsnotify.Write {
 					log.Println("modified file:", event.Name)
 				}
-				repo.Sync()
+				go repo.Sync()
 			case err, ok := <-watcher.Errors:
 				if !ok {
 					return
