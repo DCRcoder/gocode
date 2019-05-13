@@ -56,6 +56,7 @@ func WatchAnyEvent(repo Repository) {
 				if event.Op&fsnotify.Write == fsnotify.Write {
 					log.Println("modified file:", event.Name)
 				}
+				repo.mut.Lock()
 				go repo.Sync()
 			case err, ok := <-watcher.Errors:
 				if !ok {

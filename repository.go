@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -14,6 +15,7 @@ type Repository struct {
 	path       string
 	remotePath string
 	lastSync   int64
+	mut        sync.Mutex
 }
 
 func (repo Repository) Sync() {
@@ -28,6 +30,7 @@ func (repo Repository) Sync() {
 			repo.doSync()
 		}
 	}
+	repo.mut.Unlock()
 }
 
 func (repo Repository) doSync() {
