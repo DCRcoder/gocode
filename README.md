@@ -1,13 +1,13 @@
 # gocode
 a tool for syncing local repo to remote 
 
-###install
+### install
 
 ```$xslt
 make install
 ```
 
-###usage
+### usage
 ```$xslt
 gocode -f local_file -t remote_file
 ```
