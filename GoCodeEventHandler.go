@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -57,6 +58,7 @@ func WatchAnyEvent(repo Repository) {
 					log.Println("modified file:", event.Name)
 				}
 				go repo.Sync()
+				time.Sleep(time.Second * 5)
 			case err, ok := <-watcher.Errors:
 				if !ok {
 					return

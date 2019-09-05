@@ -1,5 +1,5 @@
 # gocode
-a tool for syncing local repo to remote 
+a tool that auto syncing local repo to remote when monitor the repo change
 
 ### install
 
